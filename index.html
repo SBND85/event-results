@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 당첨 확인</title>
+    <style>
+        /* 💖 기본 스타일 */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 50px;
+        }
+
+        /* 🎯 박스 스타일 */
+        .container {
+            background: white;
+            width: 400px;
+            padding: 20px;
+            margin: auto;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        /* 📝 입력 필드 스타일 */
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* 🎉 버튼 스타일 */
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        /* 📜 결과 창 스타일 */
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .fail {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+    <script>
+        // 🎯 미리 저장된 이벤트 데이터 (정답 여부 & 당첨 여부)
+        const eventData = [
+            { name: "홍길동", status: "정답", winner: "당첨" },
+            { name: "김철수", status: "정답", winner: "미당첨" },
+            { name: "이영희", status: "오답", winner: "미당첨" }
+        ];
+
+        function checkResult() {
+            const inputName = document.getElementById("nameInput").value.trim();
+            const resultDiv = document.getElementById("result");
+
+            if (!inputName) {
+                resultDiv.innerHTML = "❌ 이름을 입력해주세요!";
+                resultDiv.className = "result fail";
+                return;
+            }
+
+            const userData = eventData.find(user => user.name === inputName);
+
+            if (userData) {
+                resultDiv.innerHTML = `
+                    ✅ <strong>${userData.name}</strong> 님, <br>
+                    🎯 정답 여부: <strong>${userData.status}</strong> <br>
+                    🎉 당첨 여부: <strong>${userData.winner}</strong>
+                `;
+                resultDiv.className = "result success";
+            } else {
+                resultDiv.innerHTML = "❌ 이벤트 참가 기록이 없습니다.";
+                resultDiv.className = "result fail";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎉 이벤트 당첨 확인 🎉</h1>
+        <p>이름을 입력하고 결과를 확인하세요!</p>
+        
+        <input type="text" id="nameInput" placeholder="이름을 입력하세요">
+        <button onclick="checkResult()">결과 확인</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+</body>
+</html>
